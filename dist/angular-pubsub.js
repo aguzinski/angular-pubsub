@@ -45,6 +45,20 @@
         }
         channels[topic].push(callback);
       },
+      
+      subscribeOnce: function(topic, callback) {
+        if (!(callback instanceof Function)){
+          throw new Error('callback must be a function');
+        }
+        if (!channels[topic]) {
+          channels[topic] = [];
+        }
+        // if we are already subscribed to this topic, clear its contents
+        if (channels[topic].length > 0) {
+            channels[topic] = [];
+        }
+        channels[topic].push(callback);
+      },
 
       unsubscribe: function(topic, callback) {
         if (!channels[topic]) {
